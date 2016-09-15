@@ -110,3 +110,7 @@ git push
 ```
 
 Your post should now be visible at GitHub.
+
+## Google Analytics and Comments
+
+By default Jekyll uses the [Minima theme](https://github.com/jekyll/minima) and it supports precisely the two things I wanted on my blog: google analytics and comments. All you need to do is register your site at those two sites and add a config entry for each in your ``_config.yml``...
