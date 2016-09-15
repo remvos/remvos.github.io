@@ -9,9 +9,10 @@ virtualenv, etc.  Docker is a great way of achieving this. Its not just
 for containing complete server deployments, but it can contain a simple
 tool just as well.
 
-# Set up
+## Set up
 
 Jekyll publishes a Docker container which:
+
 > ...provides an isolated Jekyll instance with the latest version of
 > Jekyll and a bunch of nice stuff to make your life easier when working
 > with Jekyll...
@@ -64,7 +65,27 @@ Draft articles will appear at the top of your articles. You should now
 see some activity in the Jekyll terminal and the site should contain the
 draft article when you refresh.
 
-# Publishing to GitHub
+## Publishing to Github
+
+There are two ways of publishing your site. The easiest is to let GitHub do all
+the work and simply push your Jekyll site directly to your
+``username.github.io`` repository. GitHub will serve the generated site at
+``https://username.github.io``.
+
+First, let's finish our article:
+
+```bash
+echo "And now it is..." >> $HOME/ws/pages/_drafts/my-first-post.md
+mv _drafts/my-first-post.md _posts/$(date +%Y-%m-%d)-my-first-post.md
+```
+
+If you commit your changes and push to the ``master`` branch of your repository
+then your post should now be visible at GitHub.
+
+### Publishing a generated site to GitHub
+
+GitHub does not support all plugins and/or markdown dialects. Because of this
+you might want to publish a static site to github.
 
 Create a github repository called ``username.github.io`` and clone it into the
 ``_github`` directory. The pages checkout is intentionally kept in a separate directory (i.e. not ``_site``) because at some point I will accidentally publish my drafts to github...
@@ -75,12 +96,8 @@ git clone git@github.com:$USER/$USER.github.io _github
 echo _github >> .gitignore
 ```
 
-First, let's finish our article:
 
 ```bash
-echo "And now it is..." >> $HOME/ws/pages/_drafts/my-first-post.md
-mv _drafts/my-first-post.md _posts/$(date +%Y-%m-%d)-my-first-post.md
-
 docker run --rm --label=jekyll \
   --volume=$PWD:/srv/jekyll \
   -it -p 127.0.0.1:4000:4000 jekyll/jekyll \
